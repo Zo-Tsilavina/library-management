@@ -18,7 +18,6 @@ paths:
           required: false
           schema:
             type: string
-        #TODO3: add parameter to filter books by intervals of dates of the releaseDate
       responses:
         200:
           description: The list of filtered books
@@ -47,6 +46,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+    delete:
+      summary: Delete books by name
+      operationId: deleteBooksByName
+      parameters:
+        - in: query
+          name: bookName
+          description: Filter books by name
+          required: false
+          schema:
+            type: string
+      responses:
+        204:
+          description: Books have been deleted
+
   /authors:
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
 components:
