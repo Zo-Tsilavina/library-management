@@ -6,7 +6,7 @@ info:
 servers:
   - url: https://library.com
 paths:
-  /books:
+  /authors:
     get:
       summary: Get all books
       description: The returned books are ordered by updated datetime.
@@ -71,10 +71,9 @@ paths:
           schema:
             type: string
       responses:
-        204:
+        200:
           description: Books have been deleted
 
-  /authors:
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
 components:
   schemas:
