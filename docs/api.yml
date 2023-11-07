@@ -77,7 +77,7 @@ paths:
       operationId: getAuthors
       parameters:
         - in: query
-          name: bookName
+          name: AuthorName
           description: Filter return authors by given name
           required: false
           schema:
@@ -133,7 +133,7 @@ paths:
       operationId: deleteAuthorsByName
       parameters:
         - in: query
-          name: bookName
+          name: authorName
           description: Filter authors by name
           required: false
           schema:
@@ -142,7 +142,32 @@ paths:
         200:
           description: authors have been deleted
 
-  #TODO2: complete GET (can be filtered by name) - PUT - DELETE
+  /put/books/{bookId}/authors/{authorId}:
+    put:
+      tags:
+        - Books
+      summary: Create or update list of books
+      operationId: crupdateBooks
+      parameters:
+        - name: bookId
+          in: path
+          description: book for modify
+          schema: 
+            type: string
+          required: true
+        - name: authorId
+          in: path
+          description: author for modify
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          description: modify authors of books
+          content:
+            application/json:
+              schema: '#/components/schemas/Book'
+
 components:
   schemas:
     CrupdateBook:
