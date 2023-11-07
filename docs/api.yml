@@ -6,35 +6,36 @@ info:
 servers:
   - url: https://library.com
 paths:
+  
   /authors:
     get:
-      summary: Get all books
-      description: The returned books are ordered by updated datetime.
-      operationId: getBooks
+      summary: Get all authors
+      description: The returned authors are ordered by updated datetime.
+      operationId: getAuthors
       parameters:
         - in: query
           name: bookName
-          description: Filter return books by given name
+          description: Filter return authors by given name
           required: false
           schema:
             type: string
         - in: query
           name: releaseDateStart
-          description: Filter books by release date (start of interval)
+          description: Filter authors by release date (start of interval)
           required: false
           schema:
             type: string
             format: date
         - in: query
           name: releaseDateEnd
-          description: Filter books by release date (end of interval)
+          description: Filter authors by release date (end of interval)
           required: false
           schema:
             type: string
             format: date
       responses:
         200:
-          description: The list of filtered books
+          description: The list of filtered authors
           content:
             application/json:
               schema:
@@ -42,8 +43,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     put:
-      summary: Create or update a list of books
-      operationId: crupdateBooks
+      summary: Create or update a list of authors
+      operationId: crupdateAuthors
       requestBody:
         content:
           application/json:
@@ -53,7 +54,7 @@ paths:
                 $ref: '#/components/schemas/Book'
       responses:
         200:
-          description: The list of created or updated books
+          description: The list of created or updated authors
           content:
             application/json:
               schema:
@@ -61,18 +62,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     delete:
-      summary: Delete books by name
-      operationId: deleteBooksByName
+      summary: Delete authors by name
+      operationId: deleteAuthorsByName
       parameters:
         - in: query
           name: bookName
-          description: Filter books by name
+          description: Filter authors by name
           required: false
           schema:
             type: string
       responses:
         200:
-          description: Books have been deleted
+          description: authors have been deleted
 
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
 components:
