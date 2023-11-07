@@ -139,6 +139,16 @@ paths:
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
 components:
   schemas:
+    CrupdateBook:
+      allOf:
+        - $ref: '#/components/schemas/Book'
+        - type: object
+          required:
+            - id
+            - bookName
+            - releaseDateMax
+            - releaseDateMin
+            - topic
     Book:
       type: object
       properties:
