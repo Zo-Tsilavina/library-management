@@ -70,6 +70,8 @@ paths:
                   $ref: '#/components/schemas/Book'
   /authors:
     get:
+      tags:
+        - Authors
       summary: Get all authors
       description: The returned authors are ordered by updated datetime.
       operationId: getAuthors
@@ -104,6 +106,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     put:
+      tags:
+        - Authors
       summary: Create or update a list of authors
       operationId: crupdateAuthors
       requestBody:
@@ -123,6 +127,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     delete:
+      tags:
+        - Authors
       summary: Delete authors by name
       operationId: deleteAuthorsByName
       parameters:
