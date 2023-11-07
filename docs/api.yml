@@ -142,7 +142,7 @@ paths:
         200:
           description: authors have been deleted
 
-  /put/books/{bookId}/authors/{authorId}:
+  /books/{bookId}/authors/{authorId}:
     put:
       tags:
         - Books
@@ -167,6 +167,21 @@ paths:
           content:
             application/json:
               schema: '#/components/schemas/Book'
+  /books/authors:
+    put:
+      summary: Attach authors to book
+      description: many authors attached for many books by id
+      operationId: attachAuthorsToBooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/updateBookAuthor'
+      responses:
+        200:
+          description: Authors attached to the books
 
 components:
   schemas:
@@ -200,6 +215,15 @@ components:
         releaseDate:
           type: string
           format: date
+    updateBookAuthor:
+      type: object
+      properties:
+        bookId:
+          type: string
+          description: the ID of the book to update/attach an author
+        authorId:
+          type: string
+          description: the ID of the authorto attach to the book
     Author:
       type: object
       properties:
