@@ -14,6 +14,7 @@ paths:
       description: The returned books are ordered by updated datetime.
       operationId: getBooks
       parameters:
+        - $ref: '#/components/parameters/queryPagination'
         - in: query
           name: bookName
           description: Filter return books by given name
@@ -76,6 +77,7 @@ paths:
       description: The returned authors are ordered by updated datetime.
       operationId: getAuthors
       parameters:
+        - $ref: '#/components/parameters/pathPagination'
         - in: query
           name: AuthorName
           description: Filter return authors by given name
@@ -164,9 +166,7 @@ paths:
       responses:
         200:
           description: modify authors of books
-          content:
-            application/json:
-              schema: '#/components/schemas/Book'
+
   /books/authors:
     put:
       summary: Attach authors to book
@@ -184,6 +184,22 @@ paths:
           description: Authors attached to the books
 
 components:
+  parameters:
+    queryPagination:
+      name: page
+      in: query
+      description: Number of the page
+      schema:
+        type: integer
+        default: 1
+    pathPagination:
+      name: page
+      required: true
+      in: path
+      description: number of the page
+      schema: 
+        type: integer
+        default: 1
   schemas:
     CrupdateBook:
       allOf:
