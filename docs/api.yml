@@ -49,11 +49,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
         400:
-          $ref: '#/components/responses/ApiResponse/400'
+          $ref: '#/components/responses/400'
         403:
-          $ref: '#/components/responses/ApiResponse/403'
-        500:
-          $ref: '#/components/responses/ApiResponse/500'
+          $ref: '#/components/responses/403'
     put:
       tags:
         - Books
@@ -76,11 +74,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
         400:
-          $ref: '#/components/responses/ApiResponse/400'
+          $ref: '#/components/responses/400'
         403:
-          $ref: '#/components/responses/ApiResponse/403'
-        500:
-          $ref: '#/components/responses/ApiResponse/500'
+          $ref: '#/components/responses/403'
   /authors:
     get:
       tags:
@@ -120,11 +116,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
         400:
-          $ref: '#/components/responses/ApiResponse/400'
+          $ref: '#/components/responses/400'
         403:
-          $ref: '#/components/responses/ApiResponse/403'
-        500:
-          $ref: '#/components/responses/ApiResponse/500'
+          $ref: '#/components/responses/403'
     put:
       tags:
         - Authors
@@ -147,11 +141,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
         400:
-          $ref: '#/components/responses/ApiResponse/400'
+          $ref: '#/components/responses/400'
         403:
-          $ref: '#/components/responses/ApiResponse/403'
-        500:
-          $ref: '#/components/responses/ApiResponse/500'
+          $ref: '#/components/responses/403'
     delete:
       tags:
         - Authors
@@ -168,11 +160,9 @@ paths:
         200:
           description: authors have been deleted
         400:
-          $ref: '#/components/responses/ApiResponse/400'
+          $ref: '#/components/responses/400'
         403:
-          $ref: '#/components/responses/ApiResponse/403'
-        500:
-          $ref: '#/components/responses/ApiResponse/500'
+          $ref: '#/components/responses/403'
 
   /books/{bookId}/authors/{authorId}:
     put:
@@ -197,11 +187,9 @@ paths:
         200:
           description: modify authors of books
         400:
-          $ref: '#/components/responses/ApiResponse/400'
+          $ref: '#/components/responses/400'
         403:
-          $ref: '#/components/responses/ApiResponse/403'
-        500:
-          $ref: '#/components/responses/ApiResponse/500'
+          $ref: '#/components/responses/403'
 
   /books/authors:
     put:
@@ -221,21 +209,30 @@ paths:
         200:
           description: Authors attached to the books
         400:
-          $ref: '#/components/responses/ApiResponse/400'
+          $ref: '#/components/responses/400'
         403:
-          $ref: '#/components/responses/ApiResponse/403'
-        500:
-          $ref: '#/components/responses/ApiResponse/500'
+          $ref: '#/components/responses/403'
 
 components:
   responses:
-    ApiResponse:
-      400:
-        description: Bad request
-      403:
-        description: Forbidden
-      500:
-        description: Internal Server Error
+    BookList_200:
+      description: List of books
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookListBody'
+    400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestBody'
+    403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ForbiddenBody'
   parameters:
     queryPagination:
       name: page
@@ -253,6 +250,46 @@ components:
         type: integer
         default: 1
   schemas:
+    ResponseStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: OK
+    ResponseBodyTemplate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ResponseStatus'
+        body:
+          type: object
+    BadRequestBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 400
+          message: BAD REQUEST
+        body: { }
+    ForbiddenBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+      example:
+        status:
+          code: 403
+          message: FORBIDDEN
+        body: { }
+    BookListBody:
+      allOf:
+        - $ref: '#/components/schemas/ResponseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Book'
     CrupdateBook:
       allOf:
         - $ref: '#/components/schemas/Book'
